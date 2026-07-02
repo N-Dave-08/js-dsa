@@ -1,5 +1,5 @@
 // ==========================================
-// Big-O Time Complexity Example: Summation
+// Big-O Time Complexity Example: O(n)
 // ==========================================
 
 function summation(n) {

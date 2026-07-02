@@ -43,7 +43,7 @@ Big-O tells us **how an algorithm grows as the input size (`n`) increases**, not
 
 ---
 
-# 📈 Big-O Example: Summation
+# 📈 Big-O Example: O(n)
 
 ```js
 function summation(n) {
@@ -57,9 +57,7 @@ function summation(n) {
 }
 ```
 
----
-
-## Step 1: Count the Operations
+### Step 1: Count the Operations
 
 ```text
 let sum = 0        → 1 time
@@ -73,9 +71,7 @@ for loop
 return sum         → 1 time
 ```
 
----
-
-## Step 2: Total Operations
+### Step 2: Total Operations
 
 ```text
 1 + 1 + (n + 1) + n + n + 1
@@ -83,14 +79,12 @@ return sum         → 1 time
 = 3n + 4
 ```
 
----
+### Step 3: Convert to Big-O
 
-## Step 3: Convert to Big-O
+Ignore:
 
-Big-O ignores:
-
-- Constants (`3`)
-- Lower-order terms (`+4`)
+- Constant coefficients
+- Lower-order terms
 
 ```text
 3n + 4
@@ -111,7 +105,7 @@ Consider:
 n + 2
 ```
 
-As `n` gets larger:
+As `n` grows:
 
 ```text
 n = 10
@@ -141,11 +135,7 @@ n + 2
 O(n)
 ```
 
-The same idea applies to:
-
-```text
-3n + 4
-```
+The same applies to:
 
 ```text
 3n + 4
@@ -154,37 +144,202 @@ The same idea applies to:
 O(n)
 ```
 
-Big-O focuses on the **bigger picture**, not the exact number of operations.
+---
+
+# ⏱️ O(1) — Constant Time
+
+```js
+function summation(n) {
+  return (n * (n + 1)) / 2;
+}
+
+console.log(summation(4));
+```
+
+### Time Complexity
+
+```text
+O(1)
+```
+
+The number of operations stays the **same**, regardless of the input size.
+
+```text
+n = 10          → 1 operation
+n = 100         → 1 operation
+n = 1,000       → 1 operation
+n = 1,000,000   → 1 operation
+```
+
+This is called **Constant Time**.
 
 ---
 
-## Time Complexity: O(n) (Linear Time)
+# 📈 O(n) — Linear Time
 
-An algorithm has **O(n)** time complexity if its running time grows **linearly** with the input size.
-
-```text
-Input Size (n)      Approximate Operations
-
-10                  ~10
-100                 ~100
-1,000               ~1,000
-10,000              ~10,000
-1,000,000           ~1,000,000
+```js
+for (let i = 0; i < n; i++) {
+  // some code
+}
 ```
 
-As the input size increases, the number of operations also increases at approximately the same rate.
-
-```text
-Input Size ↑  →  Operations ↑
-
-10            →  ~10
-100           →  ~100
-1,000         →  ~1,000
-10,000        →  ~10,000
-```
-
-This growth pattern is called **Linear Time**, which is represented as:
+### Time Complexity
 
 ```text
 O(n)
 ```
+
+The number of operations grows **proportionally** with the input size.
+
+```text
+n = 10          → ~10 operations
+n = 100         → ~100 operations
+n = 1,000       → ~1,000 operations
+```
+
+This is called **Linear Time**.
+
+---
+
+# 📈 O(n²) — Quadratic Time
+
+```js
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    // some code
+  }
+}
+```
+
+### Time Complexity
+
+```text
+O(n²)
+```
+
+Operation count example:
+
+```text
+3n² + 5n + 1
+```
+
+Big-O ignores the smaller terms and constants:
+
+```text
+3n² + 5n + 1
+      ↓
+
+O(n²)
+```
+
+This is called **Quadratic Time**.
+
+---
+
+# 📈 O(n³) — Cubic Time
+
+```js
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < n; j++) {
+    for (let k = 0; k < n; k++) {
+      // some code
+    }
+  }
+}
+```
+
+### Time Complexity
+
+```text
+O(n³)
+```
+
+This is called **Cubic Time**.
+
+---
+
+# 📈 O(log n) — Logarithmic Time
+
+An algorithm has **O(log n)** time complexity when the input size is **reduced by half** during each iteration.
+
+Example:
+
+```text
+16
+↓
+8
+↓
+4
+↓
+2
+↓
+1
+```
+
+The larger the input becomes, the slower the number of steps grows.
+
+This is called **Logarithmic Time**.
+
+```text
+O(log n)
+```
+
+---
+
+# 💾 Space Complexity
+
+Space complexity measures the amount of **memory** an algorithm uses as the input size grows.
+
+### Common Space Complexities
+
+| Complexity   | Description       |
+| ------------ | ----------------- |
+| **O(1)**     | Constant Space    |
+| **O(n)**     | Linear Space      |
+| **O(log n)** | Logarithmic Space |
+
+---
+
+# 📈 Big-O Trend
+
+From fastest growth to slowest performance:
+
+```text
+Better 👍
+
+O(1)
+  │
+  ▼
+O(log n)
+  │
+  ▼
+O(n)
+  │
+  ▼
+O(n log n)
+  │
+  ▼
+O(n²)
+  │
+  ▼
+O(n³)
+
+Worse 👎
+```
+
+Or using your image:
+
+```md
+![Big-O Trend](image.png)
+```
+
+---
+
+# 📝 A Few Points to Note
+
+- There are multiple algorithms that can solve the same problem.
+- There is **no single best algorithm** for every situation.
+- Different algorithms perform better under different constraints.
+- The same algorithm can be implemented in different ways, even using the same programming language.
+- When writing code, don't lose sight of the bigger picture.
+- Prefer writing code that is **simple, readable, and maintainable** over clever but difficult-to-understand code.
