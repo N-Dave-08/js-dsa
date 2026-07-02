@@ -329,9 +329,7 @@ Worse 👎
 
 Or using your image:
 
-```md
-![alt text](image.png)
-```
+![Big-O Trend](image.png)
 
 ---
 
