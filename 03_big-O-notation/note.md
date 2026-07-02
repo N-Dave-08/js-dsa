@@ -304,31 +304,6 @@ Space complexity measures the amount of **memory** an algorithm uses as the inpu
 
 From fastest growth to slowest performance:
 
-```text
-Better 👍
-
-O(1)
-  │
-  ▼
-O(log n)
-  │
-  ▼
-O(n)
-  │
-  ▼
-O(n log n)
-  │
-  ▼
-O(n²)
-  │
-  ▼
-O(n³)
-
-Worse 👎
-```
-
-Or using your image:
-
 ![Big-O Trend](image.png)
 
 ---
