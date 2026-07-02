@@ -2,7 +2,7 @@
 
 ## What is Big-O?
 
-**Big-O notation** represents the **worst-case time complexity** of an algorithm.
+**Big-O notation** represents the **worst-case complexity** of an algorithm.
 
 ---
 
@@ -40,6 +40,24 @@ Because as `n` becomes very large, the constant `3` and the `+4` become insignif
 ## Key Idea
 
 Big-O tells us **how an algorithm grows as the input size (`n`) increases**, not the exact running time.
+
+---
+
+# ⏱️ Time Complexity
+
+**Time complexity** measures the amount of **time (operations)** an algorithm takes as the input size (`n`) grows.
+
+Just like space complexity, we express time complexity using **Big-O notation**.
+
+### Common Time Complexities
+
+| Complexity   | Description      |
+| ------------ | ---------------- |
+| **O(1)**     | Constant Time    |
+| **O(log n)** | Logarithmic Time |
+| **O(n)**     | Linear Time      |
+| **O(n²)**    | Quadratic Time   |
+| **O(n³)**    | Cubic Time       |
 
 ---
 
@@ -214,23 +232,13 @@ for (let i = 0; i < n; i++) {
 ### Time Complexity
 
 ```text
-O(n²)
-```
-
-Operation count example:
-
-```text
-3n² + 5n + 1
-```
-
-Big-O ignores the smaller terms and constants:
-
-```text
 3n² + 5n + 1
       ↓
 
 O(n²)
 ```
+
+The number of operations grows proportionally to **n²**.
 
 This is called **Quadratic Time**.
 
@@ -253,6 +261,8 @@ for (let i = 0; i < n; i++) {
 ```text
 O(n³)
 ```
+
+The number of operations grows proportionally to **n³**.
 
 This is called **Cubic Time**.
 
@@ -288,21 +298,196 @@ O(log n)
 
 # 💾 Space Complexity
 
-Space complexity measures the amount of **memory** an algorithm uses as the input size grows.
+**Space complexity** measures the amount of **memory** an algorithm uses as the input size (`n`) grows.
+
+Just like time complexity, we express space complexity using **Big-O notation**.
 
 ### Common Space Complexities
 
 | Complexity   | Description       |
 | ------------ | ----------------- |
 | **O(1)**     | Constant Space    |
-| **O(n)**     | Linear Space      |
 | **O(log n)** | Logarithmic Space |
+| **O(n)**     | Linear Space      |
+
+---
+
+## O(1) — Constant Space
+
+The algorithm uses the **same amount of memory**, regardless of the input size.
+
+### Example
+
+```js
+function sum(a, b) {
+  return a + b;
+}
+```
+
+Memory used:
+
+```text
+a
+b
+
+return value
+```
+
+Whether:
+
+```text
+a = 5, b = 10
+```
+
+or
+
+```text
+a = 1000000, b = 2000000
+```
+
+the algorithm still stores only a few variables.
+
+```text
+Space Complexity: O(1)
+```
+
+---
+
+## O(n) — Linear Space
+
+The memory used grows with the input size.
+
+### Example
+
+```js
+function createArray(n) {
+  const numbers = [];
+
+  for (let i = 1; i <= n; i++) {
+    numbers.push(i);
+  }
+
+  return numbers;
+}
+```
+
+If:
+
+```text
+n = 5
+```
+
+Memory:
+
+```text
+[1, 2, 3, 4, 5]
+```
+
+If:
+
+```text
+n = 1000
+```
+
+Memory:
+
+```text
+[1, 2, 3, ..., 1000]
+```
+
+As `n` grows, the array grows.
+
+```text
+Space Complexity: O(n)
+```
+
+---
+
+## O(log n) — Logarithmic Space
+
+The memory grows very slowly as the input size increases.
+
+This commonly happens in recursive algorithms.
+
+Example:
+
+```text
+16
+↓
+8
+↓
+4
+↓
+2
+↓
+1
+```
+
+Only a few recursive calls need to be stored at a time.
+
+```text
+Space Complexity: O(log n)
+```
+
+---
+
+# ⚖️ Time Complexity vs Space Complexity
+
+## Time Complexity
+
+Measures:
+
+```text
+How much work is performed?
+```
+
+Example:
+
+```js
+for (let i = 0; i < n; i++) {
+  console.log(i);
+}
+```
+
+```text
+Time: O(n)
+Space: O(1)
+```
+
+The loop runs `n` times but does not allocate additional memory proportional to `n`.
+
+---
+
+## Space Complexity
+
+Measures:
+
+```text
+How much extra memory is used?
+```
+
+Example:
+
+```js
+const arr = [];
+
+for (let i = 0; i < n; i++) {
+  arr.push(i);
+}
+```
+
+```text
+Time: O(n)
+Space: O(n)
+```
+
+The loop runs `n` times **and** creates an array containing `n` elements.
 
 ---
 
 # 📈 Big-O Trend
 
-From fastest growth to slowest performance:
+From best to worst growth:
 
 ![Big-O Trend](image.png)
 
@@ -310,9 +495,10 @@ From fastest growth to slowest performance:
 
 # 📝 A Few Points to Note
 
-- There are multiple algorithms that can solve the same problem.
+- Multiple algorithms can solve the same problem.
 - There is **no single best algorithm** for every situation.
 - Different algorithms perform better under different constraints.
 - The same algorithm can be implemented in different ways, even using the same programming language.
-- When writing code, don't lose sight of the bigger picture.
-- Prefer writing code that is **simple, readable, and maintainable** over clever but difficult-to-understand code.
+- Choose the algorithm that best fits your requirements.
+- Don't lose sight of the bigger picture.
+- Write code that is **simple, readable, and maintainable** rather than clever but difficult to understand.
