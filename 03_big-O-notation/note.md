@@ -330,7 +330,7 @@ Worse 👎
 Or using your image:
 
 ```md
-![Big-O Trend](image.png)
+![alt text](image.png)
 ```
 
 ---
