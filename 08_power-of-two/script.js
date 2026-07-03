@@ -1,9 +1,13 @@
 // ==========================================
 // Big-O Time Complexity Example:
-// Power of Two (Using a while Loop)
+// Power of Two
 // ==========================================
 
-function isPowerOfTwo(n) {
+// ------------------------------------------
+// Solution 1: Using Repeated Division
+// ------------------------------------------
+
+function isPowerOfTwoDivision(n) {
   // Powers of two must be positive.
   if (n < 1) {
     return false;
@@ -23,16 +27,17 @@ function isPowerOfTwo(n) {
   return true;
 }
 
-console.log(isPowerOfTwo(1)); // true
-console.log(isPowerOfTwo(2)); // true
-console.log(isPowerOfTwo(4)); // true
-console.log(isPowerOfTwo(8)); // true
-console.log(isPowerOfTwo(16)); // true
-console.log(isPowerOfTwo(19)); // false
+console.log("=== Division Method ===");
+console.log(isPowerOfTwoDivision(1)); // true
+console.log(isPowerOfTwoDivision(2)); // true
+console.log(isPowerOfTwoDivision(4)); // true
+console.log(isPowerOfTwoDivision(8)); // true
+console.log(isPowerOfTwoDivision(16)); // true
+console.log(isPowerOfTwoDivision(19)); // false
 
 /*
 ==========================================
-Understanding the Algorithm
+Understanding the Division Algorithm
 ==========================================
 
 Example 1
@@ -43,23 +48,11 @@ n = 16
 
 ------------------------------------------
 
-Step 1
-
-Check:
-
-n < 1 ?
-
-16 < 1 ❌ False
-
-------------------------------------------
-
 Iteration 1
 
 16 % 2 = 0 ✅
 
-Divide by 2
-
-n = 8
+16 / 2 = 8
 
 ------------------------------------------
 
@@ -67,9 +60,7 @@ Iteration 2
 
 8 % 2 = 0 ✅
 
-Divide by 2
-
-n = 4
+8 / 2 = 4
 
 ------------------------------------------
 
@@ -77,9 +68,7 @@ Iteration 3
 
 4 % 2 = 0 ✅
 
-Divide by 2
-
-n = 2
+4 / 2 = 2
 
 ------------------------------------------
 
@@ -87,19 +76,13 @@ Iteration 4
 
 2 % 2 = 0 ✅
 
-Divide by 2
-
-n = 1
+2 / 2 = 1
 
 ------------------------------------------
 
-Loop ends because
+n is now 1
 
-n > 1 ❌ False
-
-Return:
-
-true
+Return true
 
 ==========================================
 
@@ -111,23 +94,11 @@ n = 19
 
 ------------------------------------------
 
-Step 1
-
-Check:
-
-19 < 1 ❌ False
-
-------------------------------------------
-
-Iteration 1
-
 19 % 2 = 1 ❌
 
-19 is not divisible by 2.
+Cannot divide evenly by 2.
 
-Return:
-
-false
+Return false
 
 ==========================================
 
@@ -181,8 +152,6 @@ Example:
 
 3 is odd
 
-Cannot divide evenly by 2 anymore.
-
 Return false
 
 ==========================================
@@ -190,8 +159,6 @@ Time Complexity
 ==========================================
 
 Each iteration divides n by 2.
-
-Example:
 
 16
 
@@ -211,9 +178,8 @@ Example:
 
 1
 
-The input is cut in half every time.
-
-Therefore:
+The input size is reduced by half
+every iteration.
 
 Time Complexity = O(log n)
 
@@ -221,32 +187,170 @@ Time Complexity = O(log n)
 Space Complexity
 ==========================================
 
-The algorithm only stores:
+Only one variable (n) is used.
 
-- n
+Space Complexity = O(1)
+*/
 
-No arrays or additional data
-structures are created.
+// ==========================================
+// Solution 2: Using Bitwise Operator
+// ==========================================
 
-Whether:
+function isPowerOfTwoBitwise(n) {
+  // Powers of two must be positive.
+  if (n < 1) {
+    return false;
+  }
 
-n = 16
+  // A power of two has exactly one bit set to 1.
+  return (n & (n - 1)) === 0;
+}
 
-or
+console.log("\n=== Bitwise Method ===");
+console.log(isPowerOfTwoBitwise(1)); // true
+console.log(isPowerOfTwoBitwise(2)); // true
+console.log(isPowerOfTwoBitwise(4)); // true
+console.log(isPowerOfTwoBitwise(8)); // true
+console.log(isPowerOfTwoBitwise(16)); // true
+console.log(isPowerOfTwoBitwise(19)); // false
 
-n = 1,000,000
+/*
+==========================================
+Understanding the Bitwise Algorithm
+==========================================
 
-the amount of memory stays the same.
+Key Observation
 
-Therefore:
+Every power of two has exactly
+one bit set to 1.
+
+Examples:
+
+1  = 0001
+
+2  = 0010
+
+4  = 0100
+
+8  = 1000
+
+16 = 10000
+
+------------------------------------------
+
+Subtract 1
+
+Example:
+
+8
+
+1000
+
+↓
+
+7
+
+0111
+
+------------------------------------------
+
+Perform Bitwise AND
+
+1000
+0111
+----
+0000
+
+Result is 0
+
+Return true
+
+==========================================
+
+Example: 16
+
+16 = 10000
+
+15 = 01111
+
+10000
+01111
+-----
+00000
+
+Result = 0
+
+Return true
+
+==========================================
+
+Example: 10
+
+10 = 1010
+
+9 = 1001
+
+1010
+1001
+----
+1000
+
+Result ≠ 0
+
+Return false
+
+==========================================
+Why Does This Work?
+==========================================
+
+Only powers of two have exactly
+one bit equal to 1.
+
+Subtracting 1 flips that bit
+and every bit after it.
+
+Therefore,
+
+n & (n - 1)
+
+equals 0 only for powers of two.
+
+==========================================
+Time Complexity
+==========================================
+
+Only one bitwise operation
+is performed.
+
+Time Complexity = O(1)
+
+==========================================
+Space Complexity
+==========================================
+
+No additional memory is used.
 
 Space Complexity = O(1)
 
 ==========================================
-Final Answer
+Comparison
 ==========================================
 
-Time Complexity  : O(log n)
+Division Method
 
-Space Complexity : O(1)
+Time  : O(log n)
+
+Space : O(1)
+
+------------------------------------------
+
+Bitwise Method
+
+Time  : O(1)
+
+Space : O(1)
+
+The bitwise solution is the most
+efficient and is commonly asked
+in coding interviews.
 */
