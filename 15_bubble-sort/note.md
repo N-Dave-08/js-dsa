@@ -16,7 +16,7 @@ After each pass through the array, the **largest unsorted element "bubbles" to t
 
 ---
 
-# How Bubble Sort Works
+# 🔄 How Bubble Sort Works
 
 Suppose we have:
 
@@ -30,7 +30,6 @@ During the first pass:
 Compare -6 and 20
 
 -6 < 20
-
 No swap
 
 [-6, 20, 8, -2, 4]
@@ -42,7 +41,6 @@ No swap
 Compare 20 and 8
 
 20 > 8
-
 Swap
 
 [-6, 8, 20, -2, 4]
@@ -54,7 +52,6 @@ Swap
 Compare 20 and -2
 
 20 > -2
-
 Swap
 
 [-6, 8, -2, 20, 4]
@@ -66,7 +63,6 @@ Swap
 Compare 20 and 4
 
 20 > 4
-
 Swap
 
 [-6, 8, -2, 4, 20]
@@ -76,7 +72,7 @@ Notice that **20**, the largest value, has moved to the end.
 
 ---
 
-# Examples
+# 🧪 Examples
 
 ```text
 bubbleSort([-6, 20, 8, -2, 4])
@@ -126,9 +122,7 @@ If they are out of order:
 
 ```text
 Left > Right
-
 ↓
-
 Swap
 ```
 
@@ -136,13 +130,13 @@ Otherwise:
 
 ```text
 Left < Right
-
 ↓
-
 Do nothing
 ```
 
 Every pass places the **largest remaining element** at its correct position.
+
+The process stops when a full pass completes with no swaps.
 
 ---
 
@@ -176,7 +170,7 @@ Third pass:
 [1, 2, 4, 5]
 ```
 
-The array is completely sorted.
+No swaps occur → sorting is complete.
 
 ---
 
@@ -192,7 +186,9 @@ In JavaScript:
 
 ```js
 if (arr[i] > arr[i + 1]) {
-  [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+  let temp = arr[i];
+  arr[i] = arr[i + 1];
+  arr[i + 1] = temp;
 }
 ```
 
@@ -200,11 +196,13 @@ if (arr[i] > arr[i + 1]) {
 
 # 📝 Algorithm
 
-1. Repeat until the array is sorted.
-2. Compare each pair of adjacent elements.
-3. If the left element is greater than the right element:
-   - Swap them.
-4. Continue until no swaps occur during an entire pass.
+1. Assume the array is not sorted.
+2. Traverse the array from left to right.
+3. Compare each pair of adjacent elements.
+4. If the left element is greater than the right element:
+   - Swap them using a temporary variable.
+   - Mark that a swap occurred.
+5. Repeat the process until a full pass completes with no swaps.
 
 ---
 
@@ -219,7 +217,10 @@ function bubbleSort(arr) {
 
     for (let i = 0; i < arr.length - 1; i++) {
       if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        let temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+
         swapped = true;
       }
     }
@@ -230,78 +231,46 @@ function bubbleSort(arr) {
 
 const arr = [-6, 20, 8, -2, 4];
 
-console.log(bubbleSort(arr)); // [-6, -2, 4, 8, 20]
+console.log(bubbleSort(arr));
+// [-6, -2, 4, 8, 20]
 ```
 
 ---
 
 # 🔍 Dry Run
 
-Sort:
+Initial array:
 
 ```text
 [-6, 20, 8, -2, 4]
 ```
+
+---
 
 ### Pass 1
 
-```text
-Compare -6 and 20
+- Compare -6 and 20 → no swap
+- Compare 20 and 8 → swap
+- Compare 20 and -2 → swap
+- Compare 20 and 4 → swap
 
-No swap
-
-[-6, 20, 8, -2, 4]
-```
-
-```text
-Compare 20 and 8
-
-Swap
-
-[-6, 8, 20, -2, 4]
-```
+Result:
 
 ```text
-Compare 20 and -2
-
-Swap
-
-[-6, 8, -2, 20, 4]
-```
-
-```text
-Compare 20 and 4
-
-Swap
-
 [-6, 8, -2, 4, 20]
 ```
-
-Largest element is now in its correct position.
 
 ---
 
 ### Pass 2
 
-```text
-Compare -6 and 8
+- Compare -6 and 8 → no swap
+- Compare 8 and -2 → swap
+- Compare 8 and 4 → swap
 
-No swap
-```
-
-```text
-Compare 8 and -2
-
-Swap
-
-[-6, -2, 8, 4, 20]
-```
+Result:
 
 ```text
-Compare 8 and 4
-
-Swap
-
 [-6, -2, 4, 8, 20]
 ```
 
@@ -309,29 +278,13 @@ Swap
 
 ### Pass 3
 
-```text
-Compare -6 and -2
+- Compare -6 and -2 → no swap
+- Compare -2 and 4 → no swap
+- Compare 4 and 8 → no swap
 
-No swap
-```
+No swaps → stop.
 
-```text
-Compare -2 and 4
-
-No swap
-```
-
-```text
-Compare 4 and 8
-
-No swap
-```
-
-No swaps occurred.
-
-The algorithm stops.
-
-Final answer:
+Final result:
 
 ```text
 [-6, -2, 4, 8, 20]
@@ -349,9 +302,7 @@ Final answer:
 O(n²)
 ```
 
-Reason:
-
-If the array is in reverse order, Bubble Sort must compare and swap many elements across multiple passes.
+Occurs when array is reverse sorted.
 
 Example:
 
@@ -367,15 +318,15 @@ Example:
 O(n)
 ```
 
-Reason:
-
-If the array is already sorted, only one pass is needed to verify that no swaps are required.
+Occurs when array is already sorted.
 
 Example:
 
 ```text
 [1, 2, 3, 4, 5]
 ```
+
+Only one pass is needed.
 
 ---
 
@@ -385,30 +336,17 @@ Example:
 O(1)
 ```
 
-Reason:
-
-Bubble Sort sorts the array **in place**.
-
-It only uses a few extra variables regardless of the input size.
+Bubble Sort is in-place and only uses a single temporary variable.
 
 ---
 
-# 💡 Tips for Bubble Sort
+# 💡 Key Takeaways
 
-- Compare **adjacent elements** only.
-- Swap only when the left value is greater than the right value.
-- After every pass, the largest unsorted value moves to the end.
-- Stop early if an entire pass finishes without any swaps.
-
----
-
-# 📝 Key Takeaways
-
-- Bubble Sort repeatedly compares adjacent elements.
-- If two neighboring elements are in the wrong order, they are swapped.
-- Each pass places the largest unsorted element at the end.
-- The algorithm stops when no swaps occur during a pass.
-- Bubble Sort is simple but inefficient for large datasets.
-- **Worst Time Complexity:** `O(n²)`
-- **Best Time Complexity:** `O(n)`
-- **Space Complexity:** `O(1)`
+- Bubble Sort compares adjacent elements.
+- Swaps happen only when elements are in the wrong order.
+- Each pass pushes the largest element to the end.
+- The algorithm stops when no swaps occur in a pass.
+- Simple but inefficient for large datasets.
+- Worst & Average Time: `O(n²)`
+- Best Time: `O(n)`
+- Space: `O(1)`
