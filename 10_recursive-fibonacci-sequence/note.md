@@ -2,35 +2,35 @@
 
 ## Problem Statement
 
-Given a non-negative integer **`n`**, return the **nth** element of the Fibonacci sequence using **recursion**.
+Given a non-negative integer **`n`**, find the **nth Fibonacci number** using **recursion**.
 
 ---
 
-# 📘 What is the Fibonacci Sequence?
+# 📖 What is the Fibonacci Sequence?
 
-The Fibonacci sequence is a sequence of numbers where each number is the sum of the **two previous numbers**.
+The **Fibonacci sequence** is a sequence in which each number is the sum of the **two preceding numbers**.
 
-The first two numbers are:
-
-```text
-0, 1
-```
-
-The sequence continues as:
+The sequence starts with:
 
 ```text
 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 ```
 
+Mathematically:
+
+```text
+F(n) = F(n - 1) + F(n - 2)
+```
+
 ---
 
-# 📝 Examples
+# Examples
 
 ```text
 recursiveFibonacci(0)
 ```
 
-Output:
+Output
 
 ```text
 0
@@ -42,7 +42,7 @@ Output:
 recursiveFibonacci(1)
 ```
 
-Output:
+Output
 
 ```text
 1
@@ -54,7 +54,7 @@ Output:
 recursiveFibonacci(2)
 ```
 
-Output:
+Output
 
 ```text
 1
@@ -66,7 +66,7 @@ Output:
 recursiveFibonacci(3)
 ```
 
-Output:
+Output
 
 ```text
 2
@@ -78,23 +78,31 @@ Output:
 recursiveFibonacci(6)
 ```
 
-Output:
+Output
 
 ```text
 8
 ```
 
----
-
-# 💡 How Recursion Solves It
-
-To find the nth Fibonacci number:
+Sequence:
 
 ```text
-F(n) = F(n - 1) + F(n - 2)
+Index : 0  1  2  3  4  5  6
+
+Value : 0, 1, 1, 2, 3, 5, 8
 ```
 
-This means:
+---
+
+# 🧠 Recursive Thinking
+
+Instead of solving:
+
+```text
+F(6)
+```
+
+directly, recursion breaks it into smaller problems.
 
 ```text
 F(6)
@@ -104,7 +112,7 @@ F(6)
 F(5) + F(4)
 ```
 
-Then:
+But now:
 
 ```text
 F(5)
@@ -114,37 +122,55 @@ F(5)
 F(4) + F(3)
 ```
 
+and
+
+```text
+F(4)
+
+↓
+
+F(3) + F(2)
+```
+
 Each problem becomes **smaller versions of the same problem**.
 
 ---
 
-# 🌳 Recursive Tree Example
+# 🌳 Recursion Tree
 
-Finding:
+```text
+F(6)
+├── F(5)
+│   ├── F(4)
+│   │   ├── F(3)
+│   │   └── F(2)
+│   └── F(3)
+└── F(4)
+    ├── F(3)
+    └── F(2)
+```
+
+Notice that many values are calculated **multiple times**.
+
+For example:
 
 ```text
 F(4)
+
+F(3)
+
+F(2)
 ```
 
-Breaks down into:
-
-```text
-                 F(4)
-               /      \
-            F(3)      F(2)
-           /   \      /   \
-        F(2) F(1)  F(1) F(0)
-        /  \
-     F(1) F(0)
-```
-
-Eventually, every branch reaches one of the base cases.
+are repeatedly recomputed.
 
 ---
 
-# 📌 Base Cases
+# 🔑 Base Case
 
-The recursion stops when:
+Every recursive solution needs a **base case**.
+
+For Fibonacci:
 
 ```text
 F(0) = 0
@@ -152,39 +178,20 @@ F(0) = 0
 F(1) = 1
 ```
 
-These are the **base cases**.
+Once recursion reaches either of these values, it stops.
 
 ---
 
-# 🧠 Algorithm
+# 📝 Algorithm
 
 1. If `n` is `0`, return `0`.
 2. If `n` is `1`, return `1`.
-3. Otherwise, return:
-   - `recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2)`
+3. Otherwise:
+   - Return `recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2)`.
 
 ---
 
-# 💻 JavaScript Solution
-
-```js
-function recursiveFibonacci(n) {
-  if (n < 2) {
-    return n;
-  }
-
-  return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
-}
-
-console.log(recursiveFibonacci(6));
-
-// Output:
-// 8
-```
-
----
-
-# 📊 Complexity Analysis
+# ⚡ Complexity Analysis
 
 ## Time Complexity
 
@@ -192,9 +199,7 @@ console.log(recursiveFibonacci(6));
 O(2ⁿ)
 ```
 
-Each function call creates **two more recursive calls** (except the base cases).
-
-The number of calls grows exponentially.
+Each recursive call creates **two more recursive calls**, causing the number of function calls to grow exponentially.
 
 ---
 
@@ -204,36 +209,30 @@ The number of calls grows exponentially.
 O(n)
 ```
 
-The deepest recursive call stack is proportional to `n`.
+The maximum depth of the recursive call stack is `n`.
 
 ---
 
-# 📝 Summary
+# 💡 Tips for Solving Recursive Problems
 
-| Input | Output |
-| ----: | -----: |
-|   `0` |    `0` |
-|   `1` |    `1` |
-|   `2` |    `1` |
-|   `3` |    `2` |
-|   `4` |    `3` |
-|   `5` |    `5` |
-|   `6` |    `8` |
+- Break the problem into **smaller versions of the same problem**.
+- Identify the **base case** that stops the recursion.
+- Make sure each recursive call gets closer to the base case.
 
 ---
 
-# 🎯 Key Takeaways
+# 📝 Key Takeaways
 
-- The Fibonacci sequence starts with **0** and **1**.
-- Every number after that is the sum of the previous two numbers.
+- Fibonacci is a classic example of recursion.
 - The recursive formula is:
 
 ```text
 F(n) = F(n - 1) + F(n - 2)
 ```
 
-- The recursion stops at the **base cases**:
+- Base cases:
   - `F(0) = 0`
   - `F(1) = 1`
-- **Time Complexity:** `O(2ⁿ)` (Exponential Time)
+- Recursive Fibonacci is easy to understand but **inefficient** because it recalculates the same values many times.
+- **Time Complexity:** `O(2ⁿ)`
 - **Space Complexity:** `O(n)`
