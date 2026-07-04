@@ -18,8 +18,8 @@ function search(arr, target, left, right) {
     return -1;
   }
 
-  // Find the middle index.
-  const middle = Math.floor((left + right) / 2);
+  // Find the middle index of the current search range.
+  const middle = left + Math.floor((right - left) / 2);
 
   // If the middle element is the target,
   // return its index.
@@ -62,11 +62,14 @@ Call 1
 Left  = 0
 Right = 4
 
-Middle = (0 + 4) / 2 = 2
+Middle = 0 + (4 - 0) / 2 = 2
 
 arr[2] = 4
 
 10 > 4
+
+Discard the left half, including
+the middle element.
 
 Recursively search the right half.
 
@@ -79,11 +82,14 @@ Call 2
 Left  = 3
 Right = 4
 
-Middle = (3 + 4) / 2 = 3
+Middle = 3 + (4 - 3) / 2 = 3
 
 arr[3] = 6
 
 10 > 6
+
+Discard the left half, including
+the middle element.
 
 Recursively search the right half.
 
@@ -96,7 +102,7 @@ Call 3
 Left  = 4
 Right = 4
 
-Middle = (4 + 4) / 2 = 4
+Middle = 4 + (4 - 4) / 2 = 4
 
 arr[4] = 10
 
@@ -118,17 +124,25 @@ Target = 7
 
 Call 1
 
+Left  = 0
+Right = 4
+
 Middle = 2
 
 arr[2] = 4
 
 7 > 4
 
-Search right half.
+Discard the left half.
+
+Recursively search the right half.
 
 ------------------------------------------
 
 Call 2
+
+Left  = 3
+Right = 4
 
 Middle = 3
 
@@ -136,11 +150,16 @@ arr[3] = 6
 
 7 > 6
 
-Search right half.
+Discard the left half.
+
+Recursively search the right half.
 
 ------------------------------------------
 
 Call 3
+
+Left  = 4
+Right = 4
 
 Middle = 4
 
@@ -148,7 +167,10 @@ arr[4] = 10
 
 7 < 10
 
-Search left half.
+Discard the right half,
+including the middle element.
+
+Recursively search the left half.
 
 search(arr, 7, 4, 3)
 
@@ -156,10 +178,12 @@ search(arr, 7, 4, 3)
 
 Base Case
 
-Left = 4
+Left  = 4
 Right = 3
 
 Left > Right
+
+The search range is invalid.
 
 Stop searching.
 
@@ -217,10 +241,19 @@ Best Time Complexity = O(1)
 
 ------------------------------------------
 
+Average Case
+
+Each recursive call cuts the
+remaining search space in half.
+
+Average Time Complexity = O(log n)
+
+------------------------------------------
+
 Worst Case
 
-Each recursive call cuts the search
-space in half.
+Each recursive call cuts the
+search space in half.
 
 Example:
 
@@ -286,9 +319,11 @@ Space Complexity = O(log n)
 Final Answer
 ==========================================
 
-Best Time Complexity  : O(1)
+Best Time Complexity    : O(1)
 
-Worst Time Complexity : O(log n)
+Average Time Complexity : O(log n)
 
-Space Complexity      : O(log n)
+Worst Time Complexity   : O(log n)
+
+Space Complexity        : O(log n)
 */
