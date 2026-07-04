@@ -2,10 +2,8 @@
 // Linear Search
 // ==========================================
 
-const arr = [-5, 2, 10, 4, 6];
-
-function linearSearch(target) {
-  // Check each element in the array.
+function linearSearch(arr, target) {
+  // Iterate through each element in the array.
   for (let i = 0; i < arr.length; i++) {
     // If the current element matches the target,
     // return its index.
@@ -14,13 +12,16 @@ function linearSearch(target) {
     }
   }
 
-  // The target was not found.
+  // If the target was not found,
+  // return -1.
   return -1;
 }
 
-console.log(linearSearch(10)); // 2
-console.log(linearSearch(6)); // 4
-console.log(linearSearch(7)); // -1
+const arr = [-5, 2, 10, 4, 6];
+
+console.log(linearSearch(arr, 10)); // 2
+console.log(linearSearch(arr, 6)); // 4
+console.log(linearSearch(arr, 7)); // -1
 
 /*
 ==========================================
@@ -79,8 +80,8 @@ Return:
 
 2
 
-The search stops immediately after
-finding the target.
+The search stops immediately because
+the target has been found.
 
 ==========================================
 
@@ -132,14 +133,14 @@ Return:
 Why Does This Work?
 ==========================================
 
-Linear Search checks every element
-starting from the beginning of the array.
+Linear Search examines each element
+from left to right.
 
 If an element matches the target,
-its index is returned.
+its index is returned immediately.
 
 If the loop finishes without finding
-the target, the function returns -1.
+the target, -1 is returned.
 
 ==========================================
 Time Complexity
@@ -166,15 +167,39 @@ Worst Case
 The target is the last element
 or does not exist.
 
-Examples:
+Example 1:
 
 [-5, 2, 10, 4, 6]
 
 Target = 6
 
-or
+Comparisons:
+
+-5 ❌
+2  ❌
+10 ❌
+4  ❌
+6  ✅
+
+Total comparisons: 5
+
+------------------------------------------
+
+Example 2:
+
+[-5, 2, 10, 4, 6]
 
 Target = 100
+
+Comparisons:
+
+-5 ❌
+2  ❌
+10 ❌
+4  ❌
+6  ❌
+
+Total comparisons: 5
 
 Every element must be checked.
 
@@ -184,10 +209,11 @@ Worst Time Complexity = O(n)
 Space Complexity
 ==========================================
 
-The algorithm only uses:
+The algorithm only stores:
 
-- target
-- i
+- arr (input)
+- target (input)
+- i (loop variable)
 
 No additional arrays or data
 structures are created.
