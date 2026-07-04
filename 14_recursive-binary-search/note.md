@@ -2,40 +2,31 @@
 
 ## Problem Statement
 
-Given a **sorted array** of `n` elements and a target value `target`, return the **index** of the target if it exists.
+Given a **sorted array** of `n` elements and a target element `t`, return the **index** of `t`.
 
-If the target is **not found**, return `-1`.
+If the target element is **not found**, return `-1`.
 
 ---
 
-# 📖 What is Recursive Binary Search?
+## What is Binary Search?
 
-Recursive Binary Search is a searching algorithm that works by repeatedly dividing a **sorted array** in half.
+Binary Search is a searching algorithm that works by repeatedly dividing a **sorted array** in half.
 
-Instead of checking every element one by one, it compares the target with the **middle element**.
+Instead of checking every element one by one, it compares the target with the middle element.
 
 - If the target is **equal** to the middle element, return its index.
-- If the target is **smaller**, recursively search the **left half**.
-- If the target is **greater**, recursively search the **right half**.
+- If the target is **smaller**, search the left half.
+- If the target is **greater**, search the right half.
 
-Unlike the iterative version, Recursive Binary Search uses **function calls** instead of a loop to continue searching.
-
-> **Important:** Binary Search only works on **sorted arrays**.
+The recursive version does this by **calling itself** on the appropriate half of the array.
 
 ---
 
 # Example
 
-Array:
-
 ```text
-[-5, 2, 4, 6, 10]
-```
-
-Target:
-
-```text
-10
+arr = [-5, 2, 4, 6, 10]
+t = 10
 ```
 
 Output:
@@ -47,10 +38,7 @@ Output:
 Because:
 
 ```text
-Index:   0   1   2   3   4
-Array: [-5, 2, 4, 6, 10]
-                    ↑
-                 Target
+arr[4] = 10
 ```
 
 ---
@@ -59,16 +47,9 @@ Array: [-5, 2, 4, 6, 10]
 
 ### Example 1
 
-Array:
-
 ```text
-[-5, 2, 4, 6, 10]
-```
-
-Target:
-
-```text
-6
+arr = [-5, 2, 4, 6, 10]
+t = 6
 ```
 
 Output:
@@ -81,16 +62,9 @@ Output:
 
 ### Example 2
 
-Array:
-
 ```text
-[-5, 2, 4, 6, 10]
-```
-
-Target:
-
-```text
--5
+arr = [-5, 2, 4, 6, 10]
+t = -5
 ```
 
 Output:
@@ -103,16 +77,9 @@ Output:
 
 ### Example 3
 
-Array:
-
 ```text
-[-5, 2, 4, 6, 10]
-```
-
-Target:
-
-```text
-7
+arr = [-5, 2, 4, 6, 10]
+t = 7
 ```
 
 Output:
@@ -121,58 +88,38 @@ Output:
 -1
 ```
 
-Because `7` does not exist in the array.
-
 ---
 
-# 🧠 How It Works
+# Visualization
 
-1. Find the middle element of the current search range.
-2. Compare the middle element with the target.
-3. If they are equal, return the middle index.
-4. If the target is smaller, recursively search the left half.
-5. If the target is larger, recursively search the right half.
-6. If there are no elements left to search (`left > right`), return `-1`.
-
----
-
-# 🔍 Visualization
-
-Search for:
+Suppose:
 
 ```text
-Target = 10
+arr = [-5, 2, 4, 6, 10]
+t = 10
 ```
 
-Initial array:
+### Step 1
 
 ```text
+           mid
+            ↓
 [-5, 2, 4, 6, 10]
-
-Left = 0
-Right = 4
-
-Middle = 2
-
-Value = 4
 ```
 
-Since:
+Middle value:
+
+```text
+4
+```
 
 ```text
 10 > 4
 ```
 
-Discard the left half, including the middle element.
+Ignore the left half.
 
-```text
-      X   X   X
-
-[-5, 2, 4, 6, 10]
-            ↑
-```
-
-Recursively search:
+Search:
 
 ```text
 [6, 10]
@@ -180,33 +127,27 @@ Recursively search:
 
 ---
 
-Second recursive call
+### Step 2
 
 ```text
-Left = 3
-Right = 4
-
-Middle = 3
-
-Value = 6
+     mid
+      ↓
+[6, 10]
 ```
 
-Since:
+Middle value:
+
+```text
+6
+```
 
 ```text
 10 > 6
 ```
 
-Discard the left half, including the middle element.
+Ignore the left half.
 
-```text
-          X
-
-[-5, 2, 4, 6, 10]
-               ↑
-```
-
-Recursively search:
+Search:
 
 ```text
 [10]
@@ -214,157 +155,16 @@ Recursively search:
 
 ---
 
-Third recursive call
+### Step 3
 
 ```text
-Left = 4
-Right = 4
-
-Middle = 4
-
-Value = 10 ✅
+mid
+ ↓
+[10]
 ```
-
-Return:
 
 ```text
-4
-```
-
----
-
-# 🔄 Why is it Recursive?
-
-Instead of using a loop, the function calls itself with a **smaller search range**.
-
-```text
-Search Entire Array
-        │
-        ▼
-Search Right Half
-        │
-        ▼
-Search Right Half
-        │
-        ▼
-Target Found
-```
-
-Each recursive call reduces the number of elements that need to be searched.
-
----
-
-# 📝 Algorithm
-
-1. Start with `left = 0` and `right = arr.length - 1`.
-2. If `left > right`, return `-1`.
-3. Find the middle index of the current search range.
-4. If the middle element equals the target, return the middle index.
-5. If the target is smaller, recursively search the left half.
-6. Otherwise, recursively search the right half.
-
----
-
-# 💻 JavaScript Solution
-
-```js
-// Binary Search only works on a SORTED array.
-const arr = [-5, 2, 4, 6, 10];
-
-function recursiveBinarySearch(arr, target) {
-  // Start searching the entire array.
-  return search(arr, target, 0, arr.length - 1);
-}
-
-function search(arr, target, left, right) {
-  // Base case: target was not found.
-  if (left > right) {
-    return -1;
-  }
-
-  // Find the middle index of the current search range.
-  const middle = left + Math.floor((right - left) / 2);
-
-  // Target found.
-  if (arr[middle] === target) {
-    return middle;
-  }
-
-  // Search the left half.
-  if (target < arr[middle]) {
-    return search(arr, target, left, middle - 1);
-  }
-
-  // Search the right half.
-  return search(arr, target, middle + 1, right);
-}
-
-console.log(recursiveBinarySearch(arr, 10)); // 4
-console.log(recursiveBinarySearch(arr, 6)); // 3
-console.log(recursiveBinarySearch(arr, 7)); // -1
-```
-
----
-
-# 🔍 Dry Run
-
-Find:
-
-```text
-recursiveBinarySearch([-5, 2, 4, 6, 10], 10)
-```
-
-### Recursive Call 1
-
-```text
-Left = 0
-Right = 4
-
-Middle = 2
-
-arr[2] = 4
-```
-
-Since:
-
-```text
-10 > 4
-```
-
-Recursively search the right half.
-
----
-
-### Recursive Call 2
-
-```text
-Left = 3
-Right = 4
-
-Middle = 3
-
-arr[3] = 6
-```
-
-Since:
-
-```text
-10 > 6
-```
-
-Recursively search the right half again.
-
----
-
-### Recursive Call 3
-
-```text
-Left = 4
-Right = 4
-
-Middle = 4
-
-arr[4] = 10
+10 == 10
 ```
 
 Target found.
@@ -377,44 +177,82 @@ Return:
 
 ---
 
-# ⚡ Complexity Analysis
+# Why is it Recursive?
 
-## Best Time Complexity
-
-```text
-O(1)
-```
-
-The target is already the middle element.
-
-Example:
+Instead of using a loop, the function calls itself.
 
 ```text
-[-5, 2, 4, 6, 10]
-          ↑
-
-Target = 4
+Search Whole Array
+        │
+        ▼
+Search Right Half
+        │
+        ▼
+Search Right Half
+        │
+        ▼
+Target Found
 ```
 
-Only one comparison is needed.
+Each recursive call searches a **smaller portion** of the array.
 
 ---
 
-## Average Time Complexity
+# Algorithm
+
+1. Find the middle index.
+2. If the middle element equals the target, return the index.
+3. If the target is smaller, recursively search the left half.
+4. If the target is larger, recursively search the right half.
+5. If the search range becomes invalid (`left > right`), return `-1`.
+
+---
+
+# JavaScript Solution
+
+```js
+function recursiveBinarySearch(arr, target) {
+  return search(arr, target, 0, arr.length - 1);
+}
+
+function search(arr, target, left, right) {
+  if (left > right) {
+    return -1;
+  }
+
+  const middle = Math.floor((left + right) / 2);
+
+  if (target === arr[middle]) {
+    return middle;
+  }
+
+  if (target < arr[middle]) {
+    return search(arr, target, left, middle - 1);
+  }
+
+  return search(arr, target, middle + 1, right);
+}
+
+console.log(recursiveBinarySearch([-5, 2, 4, 6, 10], 10));
+```
+
+Output:
+
+```text
+4
+```
+
+---
+
+# Complexity Analysis
+
+## Time Complexity
 
 ```text
 O(log n)
 ```
 
-Each recursive call cuts the remaining search space in half.
-
----
-
-## Worst Time Complexity
-
-```text
-O(log n)
-```
+Each recursive call cuts the search space in half.
 
 Example:
 
@@ -423,22 +261,20 @@ Example:
 
 ↓
 
-8 elements
+8
 
 ↓
 
-4 elements
+4
 
 ↓
 
-2 elements
+2
 
 ↓
 
-1 element
+1
 ```
-
-Each recursive call halves the search space, so the number of comparisons grows logarithmically.
 
 ---
 
@@ -448,44 +284,32 @@ Each recursive call halves the search space, so the number of comparisons grows 
 O(log n)
 ```
 
-Unlike the iterative version, each recursive function call is stored on the **call stack**.
+Each recursive call is stored on the **call stack**.
 
-Since the search depth is at most `log₂(n)`, the recursive solution requires **O(log n)** extra space.
-
----
-
-# 📊 Complexity Summary
-
-| Complexity   | Value        |
-| ------------ | ------------ |
-| Best Time    | **O(1)**     |
-| Average Time | **O(log n)** |
-| Worst Time   | **O(log n)** |
-| Space        | **O(log n)** |
+The maximum number of recursive calls is approximately `log₂(n)`.
 
 ---
 
-# 🔄 Iterative vs Recursive Binary Search
+# Summary
 
-| Feature                  | Iterative | Recursive |
-| ------------------------ | --------- | --------- |
-| Requires a sorted array? | ✅ Yes    | ✅ Yes    |
-| Best Time                | O(1)      | O(1)      |
-| Average Time             | O(log n)  | O(log n)  |
-| Worst Time               | O(log n)  | O(log n)  |
-| Space                    | O(1)      | O(log n)  |
-| Uses a loop              | ✅ Yes    | ❌ No     |
-| Uses recursion           | ❌ No     | ✅ Yes    |
+| Input Array     | Target | Output |
+| --------------- | ------ | ------ |
+| `[-5,2,4,6,10]` | `10`   | `4`    |
+| `[-5,2,4,6,10]` | `6`    | `3`    |
+| `[-5,2,4,6,10]` | `-5`   | `0`    |
+| `[-5,2,4,6,10]` | `7`    | `-1`   |
 
 ---
 
-# ✅ Key Takeaways
+# Key Takeaways
 
-- Binary Search **requires a sorted array**.
-- Recursive Binary Search repeatedly **cuts the search space in half**.
-- Instead of using a loop, it solves the problem by **calling itself** with a smaller search range.
+- The array **must be sorted**.
+- Binary Search repeatedly divides the search space in half.
+- The recursive version solves the problem by searching **smaller portions of the same array**.
 - It is much faster than Linear Search for large sorted arrays.
-- **Best Time Complexity:** `O(1)`
-- **Average Time Complexity:** `O(log n)`
-- **Worst Time Complexity:** `O(log n)`
-- **Space Complexity:** `O(log n)` because of the recursive call stack.
+- **Time Complexity:** `O(log n)`
+- **Space Complexity:** `O(log n)` (because of the recursive call stack)
+
+```
+
+```
