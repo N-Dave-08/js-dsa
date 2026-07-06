@@ -1358,29 +1358,6 @@ Final result:
 
 ---
 
-# 🆚 Quick Sort vs Bubble Sort
-
-| Bubble Sort                   | Quick Sort                     |
-| ----------------------------- | ------------------------------ |
-| Compares neighboring elements | Compares elements with a pivot |
-| Swaps repeatedly              | Partitions the array           |
-| No recursion                  | Uses recursion                 |
-| Average: `O(n²)`              | Average: `O(n log n)`          |
-| Simple but slow               | Fast for large datasets        |
-
----
-
-# 🆚 Quick Sort vs Insertion Sort
-
-| Insertion Sort                     | Quick Sort                        |
-| ---------------------------------- | --------------------------------- |
-| Builds one sorted portion          | Divides the array into partitions |
-| Shifts larger elements             | Uses a pivot                      |
-| Excellent for nearly sorted arrays | Excellent for large random arrays |
-| Average: `O(n²)`                   | Average: `O(n log n)`             |
-
----
-
 # 📝 Key Takeaways
 
 - Quick Sort is a **divide-and-conquer** algorithm.
