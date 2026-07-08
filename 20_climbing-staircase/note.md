@@ -131,46 +131,42 @@ Ways:
 
 # 🧠 Thinking About the Problem
 
-Instead of finding all paths directly, ask:
+Instead of finding every possible path directly, ask:
 
-> "How can I arrive at this step?"
+> "How many ways can I get to this step?"
 
-For any step **n**:
+For any step **n**, there are only two possibilities:
 
-- I can come from **n - 1**
-- Or I can come from **n - 2**
+- Reach it from **step n - 1** by taking 1 step.
+- Reach it from **step n - 2** by taking 2 steps.
 
-So:
+So the recurrence becomes:
 
 ```text
 Ways(n) = Ways(n - 1) + Ways(n - 2)
 ```
 
-This is the same pattern as the Fibonacci sequence.
+This follows the same pattern as the Fibonacci sequence.
 
 ---
 
 # 🌱 Base Cases
 
-Before using the formula, we need starting values.
+Before we can calculate larger values, we need two starting answers.
 
 If there is only one step:
 
 ```text
-n = 1
-
-Ways = 1
+Ways(1) = 1
 ```
 
 If there are two steps:
 
 ```text
-n = 2
-
-Ways = 2
+Ways(2) = 2
 ```
 
-These base cases allow us to calculate every larger value.
+These base cases allow us to compute every remaining step.
 
 ---
 
@@ -189,7 +185,7 @@ Ways(1) = 1
 Ways(2) = 2
 ```
 
-Calculate:
+Calculate each new step using the previous two:
 
 ```text
 Ways(3) = 2 + 1 = 3
@@ -209,13 +205,13 @@ Answer:
 
 # 📝 Algorithm
 
-1. If `n` is 1, return 1.
-2. If `n` is 2, return 2.
-3. Store the number of ways for the previous two steps.
+1. If `n` is less than or equal to 2, return `n`.
+2. Store the number of ways to reach the previous step.
+3. Store the number of ways to reach the current step.
 4. Loop from step 3 to step `n`.
-5. Calculate the current number of ways by adding the previous two values.
-6. Update the previous values.
-7. Return the final answer.
+5. Calculate the number of ways for the next step.
+6. Move the previous and current values forward.
+7. Return the number of ways for the current step.
 
 ---
 
@@ -227,16 +223,17 @@ function climbingStaircase(n) {
     return n;
   }
 
-  let one = 1;
-  let two = 2;
+  let prev = 1;
+  let curr = 2;
 
   for (let i = 3; i <= n; i++) {
-    let current = one + two;
-    one = two;
-    two = current;
+    const next = prev + curr;
+
+    prev = curr;
+    curr = next;
   }
 
-  return two;
+  return curr;
 }
 
 console.log(climbingStaircase(5));
@@ -261,8 +258,8 @@ n = 5
 Initial values:
 
 ```text
-one = 1
-two = 2
+prev = 1
+curr = 2
 ```
 
 ---
@@ -270,10 +267,12 @@ two = 2
 ### Step 3
 
 ```text
-current = 1 + 2 = 3
+next = prev + curr
 
-one = 2
-two = 3
+next = 1 + 2 = 3
+
+prev = 2
+curr = 3
 ```
 
 ---
@@ -281,10 +280,10 @@ two = 3
 ### Step 4
 
 ```text
-current = 2 + 3 = 5
+next = 2 + 3 = 5
 
-one = 3
-two = 5
+prev = 3
+curr = 5
 ```
 
 ---
@@ -292,10 +291,10 @@ two = 5
 ### Step 5
 
 ```text
-current = 3 + 5 = 8
+next = 3 + 5 = 8
 
-one = 5
-two = 8
+prev = 5
+curr = 8
 ```
 
 Loop ends.
@@ -338,21 +337,22 @@ If `n` is 1 or 2, the answer is returned immediately.
 O(1)
 ```
 
-Only a few variables are used regardless of the input size.
+Only three variables (`prev`, `curr`, and `next`) are used, regardless of the input size.
 
 ---
 
 # 💡 Key Takeaways
 
 - Each step can only be reached from the previous one or two steps.
-- The recurrence is:
+- The recurrence relation is:
 
 ```text
 Ways(n) = Ways(n - 1) + Ways(n - 2)
 ```
 
-- This follows the Fibonacci pattern.
-- An iterative solution avoids recursion and uses constant space.
+- The problem follows the Fibonacci pattern.
+- Instead of storing every previous answer, we only keep track of the previous and current number of ways.
+- This optimization reduces the space complexity from `O(n)` to `O(1)`.
 - Worst Time Complexity: `O(n)`
 - Best Time Complexity: `O(1)`
 - Space Complexity: `O(1)`

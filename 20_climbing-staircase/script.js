@@ -1,5 +1,5 @@
 // ==========================================
-// Climbing Staircase
+// Climbing Staircase (Space Optimized DP)
 // ==========================================
 
 const n = 5;
@@ -9,17 +9,17 @@ function climbingStaircase(n) {
     return n;
   }
 
-  let one = 1;
-  let two = 2;
+  let prev = 1;
+  let curr = 2;
 
   for (let i = 3; i <= n; i++) {
-    let current = one + two;
+    const next = prev + curr;
 
-    one = two;
-    two = current;
+    prev = curr;
+    curr = next;
   }
 
-  return two;
+  return curr;
 }
 
 console.log(climbingStaircase(n)); // 8
@@ -39,15 +39,15 @@ At each move, you can climb either:
 - 2 steps
 
 Instead of listing every possible path,
-we notice a pattern.
+we notice a repeating pattern.
 
 To reach any step, there are only
 two possible previous positions:
 
-- One step below
-- Two steps below
+- The previous step (n - 1)
+- Two steps before (n - 2)
 
-So the formula becomes:
+Therefore,
 
 Ways(n) = Ways(n - 1) + Ways(n - 2)
 
@@ -76,45 +76,51 @@ Ways = 2
 
 ------------------------------------------
 
-Start
+Initial Values
 
-one = 1
-two = 2
+prev = 1
+curr = 2
+
+prev represents the number of ways
+to reach the previous step.
+
+curr represents the number of ways
+to reach the current step.
 
 ------------------------------------------
 
 Iteration 1 (Step 3)
 
-current = one + two
+next = prev + curr
 
-current = 1 + 2 = 3
+next = 1 + 2 = 3
 
 Update
 
-one = 2
-two = 3
+prev = 2
+curr = 3
 
 ------------------------------------------
 
 Iteration 2 (Step 4)
 
-current = 2 + 3 = 5
+next = 2 + 3 = 5
 
 Update
 
-one = 3
-two = 5
+prev = 3
+curr = 5
 
 ------------------------------------------
 
 Iteration 3 (Step 5)
 
-current = 3 + 5 = 8
+next = 3 + 5 = 8
 
 Update
 
-one = 5
-two = 8
+prev = 5
+curr = 8
 
 ------------------------------------------
 
@@ -129,16 +135,19 @@ Key Idea
 ==========================================
 
 - Every step can be reached from
-  either the previous step or the
-  step before that.
+  either the previous step or
+  two steps before.
 
 - The number of ways to reach the
   current step equals the sum of
   the previous two steps.
 
-- Keep track of only the previous
-  two answers instead of storing
-  every result.
+- Instead of storing the answer for
+  every step, only the previous and
+  current values are needed.
+
+- This reduces the space complexity
+  from O(n) to O(1).
 
 ==========================================
 Time Complexity
@@ -148,7 +157,7 @@ Worst Case:
 O(n)
 
 - The algorithm loops through the
-  staircase one time.
+  staircase once.
 
 Average Case:
 O(n)
@@ -170,12 +179,12 @@ O(1)
 
 Only three variables are used:
 
-- one
-- two
-- current
+- prev
+- curr
+- next
 
 Their number does not increase as
-the input grows.
+the input size grows.
 
 ==========================================
 Final Answer
