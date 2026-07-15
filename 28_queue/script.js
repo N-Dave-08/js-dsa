@@ -1,94 +1,110 @@
 // ==========================================
-// Queue Using an Array
+// Queue Using a Class (Array Implementation)
 // ==========================================
 
-// A queue follows the First In, First Out (FIFO)
+// A Queue follows the First In, First Out (FIFO)
 // principle.
 //
 // The first element added is the first
 // element removed.
 
-// ------------------------------------------
-// Creating a Queue
-// ------------------------------------------
+class Queue {
+  constructor() {
+    // The array used to store queue elements.
+    this.items = [];
+  }
 
-const queue = [];
+  // ------------------------------------------
+  // Enqueue
+  // Adds an element to the rear of the queue
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  enqueue(element) {
+    this.items.push(element);
+  }
 
-console.log(queue);
-// []
+  // ------------------------------------------
+  // Dequeue
+  // Removes and returns the front element
+  // Time Complexity: O(n)
+  // ------------------------------------------
+  dequeue() {
+    return this.items.shift();
+  }
 
-// ------------------------------------------
-// Enqueue
-// Adds an element to the rear of the queue
-// Time Complexity: O(1)
-// ------------------------------------------
+  // ------------------------------------------
+  // Peek
+  // Returns the front element without removing it
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  peek() {
+    if (!this.isEmpty()) {
+      return this.items[0];
+    }
 
-queue.push(10);
-queue.push(20);
-queue.push(30);
+    return null;
+  }
 
-console.log(queue);
-// [10, 20, 30]
+  // ------------------------------------------
+  // isEmpty
+  // Checks whether the queue is empty
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  isEmpty() {
+    return this.items.length === 0;
+  }
 
-// ------------------------------------------
-// Peek
-// Returns the front element without removing it
-// Time Complexity: O(1)
-// ------------------------------------------
+  // ------------------------------------------
+  // Size
+  // Returns the number of elements
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  size() {
+    return this.items.length;
+  }
 
-console.log(queue[0]);
-// 10
-
-// ------------------------------------------
-// Dequeue
-// Removes the front element
-// Time Complexity: O(n)
-// ------------------------------------------
-
-const removedItem = queue.shift();
-
-console.log(removedItem);
-// 10
-
-console.log(queue);
-// [20, 30]
-
-// ------------------------------------------
-// Size
-// Returns the number of elements
-// Time Complexity: O(1)
-// ------------------------------------------
-
-console.log(queue.length);
-// 2
-
-// ------------------------------------------
-// isEmpty
-// Checks whether the queue is empty
-// Time Complexity: O(1)
-// ------------------------------------------
-
-console.log(queue.length === 0);
-// false
-
-// ------------------------------------------
-// Emptying the Queue
-// ------------------------------------------
-
-while (queue.length > 0) {
-  console.log(`Removed: ${queue.shift()}`);
+  // ------------------------------------------
+  // Print
+  // Displays the queue
+  // ------------------------------------------
+  print() {
+    console.log(this.items.toString());
+  }
 }
 
-/*
-Removed: 20
-Removed: 30
-*/
+// ------------------------------------------
+// Using the Queue
+// ------------------------------------------
 
-console.log(queue);
-// []
+const queue = new Queue();
 
-console.log(queue.length === 0);
+console.log(queue.isEmpty());
 // true
+
+queue.enqueue(10);
+queue.enqueue(20);
+queue.enqueue(30);
+
+queue.print();
+// 10,20,30
+
+console.log(queue.size());
+// 3
+
+console.log(queue.peek());
+// 10
+
+console.log(queue.dequeue());
+// 10
+
+queue.print();
+// 20,30
+
+console.log(queue.peek());
+// 20
+
+console.log(queue.isEmpty());
+// false
 
 /*
 ==========================================
@@ -136,48 +152,50 @@ Dequeue
 Front -> 20 30 <- Rear
 
 ==========================================
-Common Queue Operations
+Queue Class
 ==========================================
 
-Enqueue
+constructor()
 
-queue.push(value)
-
-Adds a value to the rear.
+Creates an empty queue.
 
 ------------------------------------------
 
-Dequeue
+enqueue(element)
 
-queue.shift()
-
-Removes the front value.
+Adds an element to the rear.
 
 ------------------------------------------
 
-Peek
+dequeue()
 
-queue[0]
+Removes and returns the front element.
 
-Returns the front value without
+------------------------------------------
+
+peek()
+
+Returns the front element without
 removing it.
 
 ------------------------------------------
 
-Size
+isEmpty()
 
-queue.length
+Returns true if the queue has
+no elements.
+
+------------------------------------------
+
+size()
 
 Returns the number of elements.
 
 ------------------------------------------
 
-isEmpty
+print()
 
-queue.length === 0
-
-Returns true if the queue
-contains no elements.
+Displays the queue contents.
 
 ==========================================
 Time Complexity
@@ -211,28 +229,25 @@ isEmpty
 O(1)
 
 ==========================================
-Why Use an Array?
+Why Use a Class?
 ==========================================
 
-JavaScript arrays provide built-in
-methods for implementing a queue.
+Using a class groups the queue's
+data and operations together.
 
-push()
+Instead of manipulating an array
+directly, users interact through
+methods like:
 
-Adds an element to the end.
+- enqueue()
+- dequeue()
+- peek()
+- size()
+- isEmpty()
 
-shift()
-
-Removes an element from the front.
-
-Although simple, shift() has a
-time complexity of O(n), making
-arrays less efficient for queues
-with many dequeue operations.
-
-A linked list implementation can
-perform both enqueue and dequeue
-in O(1) time.
+This follows the principles of
+encapsulation and object-oriented
+programming.
 
 ==========================================
 Real-World Applications
@@ -245,20 +260,6 @@ Real-World Applications
 - Breadth-First Search (BFS)
 
 ==========================================
-Stack vs Queue
-==========================================
-
-Stack
-
-- Last In, First Out (LIFO)
-- push() / pop()
-
-Queue
-
-- First In, First Out (FIFO)
-- enqueue() / dequeue()
-
-==========================================
 Final Answer
 ==========================================
 
@@ -267,5 +268,4 @@ Dequeue    : O(n)
 Peek        : O(1)
 Size        : O(1)
 isEmpty     : O(1)
-
 */

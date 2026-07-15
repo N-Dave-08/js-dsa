@@ -1,94 +1,110 @@
 // ==========================================
-// Stack Using an Array
+// Stack Using a Class (Array Implementation)
 // ==========================================
 
-// A stack follows the Last In, First Out (LIFO)
+// A Stack follows the Last In, First Out (LIFO)
 // principle.
 //
 // The last element added is the first
 // element removed.
 
+class Stack {
+  constructor() {
+    // The array used to store stack elements.
+    this.items = [];
+  }
+
+  // ------------------------------------------
+  // Push
+  // Adds an element to the top of the stack
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  push(element) {
+    this.items.push(element);
+  }
+
+  // ------------------------------------------
+  // Pop
+  // Removes and returns the top element
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  pop() {
+    return this.items.pop();
+  }
+
+  // ------------------------------------------
+  // Peek
+  // Returns the top element without removing it
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  peek() {
+    if (!this.isEmpty()) {
+      return this.items[this.items.length - 1];
+    }
+
+    return null;
+  }
+
+  // ------------------------------------------
+  // isEmpty
+  // Checks whether the stack is empty
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  isEmpty() {
+    return this.items.length === 0;
+  }
+
+  // ------------------------------------------
+  // Size
+  // Returns the number of elements
+  // Time Complexity: O(1)
+  // ------------------------------------------
+  size() {
+    return this.items.length;
+  }
+
+  // ------------------------------------------
+  // Print
+  // Displays the stack
+  // ------------------------------------------
+  print() {
+    console.log(this.items);
+  }
+}
+
 // ------------------------------------------
-// Creating a Stack
+// Using the Stack
 // ------------------------------------------
 
-const stack = [];
+const stack = new Stack();
 
-console.log(stack);
-// []
-
-// ------------------------------------------
-// Push
-// Adds an element to the top of the stack
-// Time Complexity: O(1)
-// ------------------------------------------
+console.log(stack.isEmpty());
+// true
 
 stack.push(10);
 stack.push(20);
 stack.push(30);
 
-console.log(stack);
+stack.print();
 // [10, 20, 30]
 
-// ------------------------------------------
-// Peek
-// Returns the top element without removing it
-// Time Complexity: O(1)
-// ------------------------------------------
+console.log(stack.size());
+// 3
 
-console.log(stack[stack.length - 1]);
+console.log(stack.peek());
 // 30
 
-// ------------------------------------------
-// Pop
-// Removes the top element
-// Time Complexity: O(1)
-// ------------------------------------------
-
-const removedItem = stack.pop();
-
-console.log(removedItem);
+console.log(stack.pop());
 // 30
 
-console.log(stack);
+stack.print();
 // [10, 20]
 
-// ------------------------------------------
-// Size
-// Returns the number of elements
-// Time Complexity: O(1)
-// ------------------------------------------
+console.log(stack.peek());
+// 20
 
-console.log(stack.length);
-// 2
-
-// ------------------------------------------
-// isEmpty
-// Checks whether the stack is empty
-// Time Complexity: O(1)
-// ------------------------------------------
-
-console.log(stack.length === 0);
+console.log(stack.isEmpty());
 // false
-
-// ------------------------------------------
-// Emptying the Stack
-// ------------------------------------------
-
-while (stack.length > 0) {
-  console.log(`Removed: ${stack.pop()}`);
-}
-
-/*
-Removed: 20
-Removed: 10
-*/
-
-console.log(stack);
-// []
-
-console.log(stack.length === 0);
-// true
 
 /*
 ==========================================
@@ -157,48 +173,50 @@ Top
 10
 
 ==========================================
-Common Stack Operations
+Stack Class
 ==========================================
 
-Push
+constructor()
 
-stack.push(value)
-
-Adds a value to the top.
+Creates an empty stack.
 
 ------------------------------------------
 
-Pop
+push(element)
 
-stack.pop()
-
-Removes the top value.
+Adds an element to the top.
 
 ------------------------------------------
 
-Peek
+pop()
 
-stack[stack.length - 1]
+Removes and returns the top element.
 
-Returns the top value without
+------------------------------------------
+
+peek()
+
+Returns the top element without
 removing it.
 
 ------------------------------------------
 
-Size
+isEmpty()
 
-stack.length
+Returns true if the stack has
+no elements.
+
+------------------------------------------
+
+size()
 
 Returns the number of elements.
 
 ------------------------------------------
 
-isEmpty
+print()
 
-stack.length === 0
-
-Returns true if the stack
-contains no elements.
+Displays the stack contents.
 
 ==========================================
 Time Complexity
@@ -228,23 +246,25 @@ isEmpty
 O(1)
 
 ==========================================
-Why Use an Array?
+Why Use a Class?
 ==========================================
 
-JavaScript arrays already provide
-everything needed to implement a stack.
+Using a class groups the stack's
+data and operations together.
 
-push()
+Instead of manipulating an array
+directly, users interact through
+methods like:
 
-Adds to the end.
+- push()
+- pop()
+- peek()
+- size()
+- isEmpty()
 
-pop()
-
-Removes from the end.
-
-Since both operations occur at
-the end of the array, they are
-very efficient.
+This follows the principles of
+encapsulation and object-oriented
+programming.
 
 ==========================================
 Real-World Applications
@@ -261,9 +281,9 @@ Real-World Applications
 Final Answer
 ==========================================
 
-Push      : O(1)
-Pop       : O(1)
-Peek      : O(1)
-Size      : O(1)
-isEmpty   : O(1)
+Push       : O(1)
+Pop        : O(1)
+Peek       : O(1)
+Size       : O(1)
+isEmpty    : O(1)
 */
